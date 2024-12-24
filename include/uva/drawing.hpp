@@ -61,6 +61,8 @@ namespace uva
         };
         class window_surface : public surface
         {
+        public:
+            window_surface() : surface(uva::size(0, 0)) { }
         };
         class memory_surface : public surface
         {
@@ -79,7 +81,7 @@ namespace uva
             texture_surface(const uva::size& s);
             ~texture_surface();
         };
-        class basic_renderer : protected os_specific_data_member<8>
+        class basic_renderer : protected os_specific_data_member<256>
         {
         public:
             basic_renderer(surface& __surface)

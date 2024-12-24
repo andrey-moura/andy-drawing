@@ -26,7 +26,7 @@ endif()
 # Get the parent directory
 get_filename_component(UVA_DRAWING_PARENT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DIRECTORY)
 
-include("../../CMakeLists.txt")
+include("../uva/CMakeLists.txt")
 
 uva_library(core)
 
@@ -59,12 +59,8 @@ endif()
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
 
 macro(os_specific_target_properties target)
-    if(WIN32)
-        set_target_properties(${target} PROPERTIES WIN32_EXECUTABLE true)
-    elseif(LINUX)
+    if(LINUX)
         target_link_libraries(${target} ${GTK3_LIBRARIES})
-    else()
-        message(FATAL_ERROR "Unsupported platform")
     endif()
 endmacro()
 

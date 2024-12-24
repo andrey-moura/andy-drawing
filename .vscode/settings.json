@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.uva": "uva",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "xiosbase": "cpp"
     }
 }
