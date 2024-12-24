@@ -1,6 +1,8 @@
 #Require a minimum version
 cmake_minimum_required(VERSION 3.10)
 
+project(uva-drawing)
+
 set(UVA_DRAWING_BACKEND "NONE")
 
 if(WIN32)
@@ -21,7 +23,10 @@ else()
     message(FATAL_ERROR "Unsupported platform")
 endif()
 
-include("${UVALANG_PARENT_DIRECTORY}/uva/CMakeLists.txt")
+# Get the parent directory
+get_filename_component(UVA_DRAWING_PARENT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DIRECTORY)
+
+include("../../CMakeLists.txt")
 
 uva_library(core)
 
@@ -53,6 +58,16 @@ endif()
 
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
 
+macro(os_specific_target_properties target)
+    if(WIN32)
+        set_target_properties(${target} PROPERTIES WIN32_EXECUTABLE true)
+    elseif(LINUX)
+        target_link_libraries(${target} ${GTK3_LIBRARIES})
+    else()
+        message(FATAL_ERROR "Unsupported platform")
+    endif()
+endmacro()
+
 # Create an executable for each file in examples
 file(GLOB EXAMPLES ${CMAKE_CURRENT_LIST_DIR}/examples/*.cpp)
 
@@ -60,4 +75,8 @@ foreach(EXAMPLE ${EXAMPLES})
     get_filename_component(EXAMPLE_NAME ${EXAMPLE} NAME_WE)
 
     add_executable(${EXAMPLE_NAME} ${EXAMPLE})
+
+    target_link_libraries(${EXAMPLE_NAME} uva-drawing)
+    
+    os_specific_target_properties(${EXAMPLE_NAME})
 endforeach()
