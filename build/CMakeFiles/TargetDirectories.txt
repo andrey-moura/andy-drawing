@@ -1,0 +1,5 @@
+C:/uva-drawing/build/CMakeFiles/uva-core.dir
+C:/uva-drawing/build/CMakeFiles/uva-drawing.dir
+C:/uva-drawing/build/CMakeFiles/minimal.dir
+C:/uva-drawing/build/CMakeFiles/ALL_BUILD.dir
+C:/uva-drawing/build/CMakeFiles/ZERO_CHECK.dir

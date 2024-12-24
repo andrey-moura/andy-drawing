@@ -1,9 +1,9 @@
-#include <GL/gl.h>
+//#include <GL/gl.h>
 
 #include <uva/drawing.hpp>
 
 struct hardware_surface_data {
-    GLuint texture = 0;
+    //GLuint texture = 0;
 };
 
 #define m_texture os_specific_data_as<hardware_surface_data>().texture
