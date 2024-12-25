@@ -55,6 +55,9 @@ namespace uva
             /// @param path The path to write the file to. The path must be a directory. It will be updated with the file name and extension.
             /// @param stem The stem of the file.
             virtual bool write_to_file(std::filesystem::path& path, std::string_view stem) { return false; }
+
+            /// @brief Convert the surface to an image.
+            virtual uva::drawing::image to_image() { return uva::drawing::image(m_size); }
         };
         class window_surface : public surface
         {
@@ -71,6 +74,9 @@ namespace uva
             /// @param path The path to write the file to. The path must be a directory. It will be updated with the file name and extension.
             /// @param stem The stem of the file.
             virtual bool write_to_file(std::filesystem::path& path, std::string_view stem) override;
+
+            /// @brief Convert the surface to an image.
+            virtual uva::drawing::image to_image() override;
         };
         class texture_surface : public surface
         {
