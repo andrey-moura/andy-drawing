@@ -56,9 +56,11 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
 
 macro(os_specific_target_properties target)
     if(LINUX)
-        target_link_libraries(${target} ${GTK3_LIBRARIES})
+        target_link_libraries(${target} ${GTK3_LIBRARIES} cairo)
     endif()
 endmacro()
+
+os_specific_target_properties(uva-drawing)
 
 # Create an executable for each file in examples
 file(GLOB EXAMPLES ${CMAKE_CURRENT_LIST_DIR}/examples/*.cpp)
