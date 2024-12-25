@@ -29,6 +29,8 @@ get_filename_component(UVA_DRAWING_PARENT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DI
 add_library(uva-drawing
     ${CMAKE_CURRENT_LIST_DIR}/src/memory_surface.${UVA_DRAWING_BACKEND}.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/software_renderer.${UVA_DRAWING_BACKEND}.cpp
+
+    ${CMAKE_CURRENT_LIST_DIR}/src/image.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/texture_surface.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/hardware_renderer.cpp
 )

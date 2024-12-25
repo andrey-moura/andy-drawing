@@ -7,6 +7,7 @@
 #include <uva/size.hpp>
 #include <uva/color.hpp>
 #include <uva/rect.hpp>
+#include <uva/drawing/image.hpp>
 
 #include "os_specific_data_member.hpp"
 
