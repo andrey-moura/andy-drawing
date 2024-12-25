@@ -2,12 +2,12 @@
 
 #include "gtk3+-3.0.hpp"
 
-uva::drawing::memory_surface::memory_surface(size_t __width, size_t __height)
-    : surface(__width, __height)
+uva::drawing::memory_surface::memory_surface(const uva::size& s)
+    : surface(s)
 {
     // Create the surface
     surface_data data;
-    data.cairo_surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, __width, __height);
+    data.cairo_surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, s.w, s.h);
 
     os_specific_data_as<surface_data>() = data;
 }

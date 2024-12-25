@@ -38,10 +38,6 @@ namespace uva
                 : m_size(s)
             {
             }
-            surface(size_t __width, size_t __height)
-                : m_size(__width, __height)
-            {
-            }
         // Protected members
         protected:
             uva::size m_size;
@@ -67,7 +63,7 @@ namespace uva
         class memory_surface : public surface
         {
         public:
-            memory_surface(size_t __width, size_t __height);
+            memory_surface(const uva::size& s);
             ~memory_surface();
         public:
             /// @brief Write the surface to a file. The format is os specific.
