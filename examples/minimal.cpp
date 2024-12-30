@@ -6,7 +6,7 @@
 int main() {
     std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 
-    uva::drawing::memory_surface surface(4000, 4000);
+    uva::drawing::memory_surface surface(uva::size(4000, 4000));
     uva::drawing::software_renderer renderer(surface);
 
     renderer.clear(uva::color(0, 255, 0));
