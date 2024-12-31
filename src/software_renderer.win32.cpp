@@ -33,7 +33,11 @@ uva::drawing::software_renderer::~software_renderer()
 
 void uva::drawing::software_renderer::fill_rect(const uva::rect& __rect, const uva::color& __color)
 {
-    RECT wrect = { __rect.x, __rect.y, __rect.w, __rect.h };
+    RECT wrect;
+    wrect.top = __rect.y;
+    wrect.left = __rect.x;
+    wrect.bottom = __rect.y + __rect.h;
+    wrect.right = __rect.x + __rect.w;
 
     HBRUSH brush = CreateSolidBrush(RGB(__color.r, __color.g, __color.b));
 

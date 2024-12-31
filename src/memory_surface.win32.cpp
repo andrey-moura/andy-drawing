@@ -4,10 +4,10 @@
 
 #define m_bitmap os_specific_data_as<memory_surface_data>().bitmap
 
-uva::drawing::memory_surface::memory_surface(size_t __width, size_t __height)
-    : surface(__width, __height)
+uva::drawing::memory_surface::memory_surface(const uva::size& s)
+    : surface(s)
 {
-    HBITMAP bitmap = CreateCompatibleBitmap(GetDC(nullptr), __width, __height);
+    HBITMAP bitmap = CreateCompatibleBitmap(GetDC(nullptr), s.w, s.h);
 
     if (bitmap == nullptr)
     {
@@ -103,6 +103,30 @@ bool uva::drawing::memory_surface::write_to_file(std::filesystem::path &path, st
     GlobalFree(hDib);
     CloseHandle(fh);
     return TRUE;
+}
+
+uva::drawing::image uva::drawing::memory_surface::to_image()
+{
+    // Get pixels of the HBITMAP in m_bitmap
+
+    BITMAPINFO info;
+    info.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+    info.bmiHeader.biWidth = width();
+    info.bmiHeader.biHeight = height();
+    info.bmiHeader.biPlanes = 1;
+    info.bmiHeader.biBitCount = 32;
+    info.bmiHeader.biCompression = BI_RGB;
+    info.bmiHeader.biSizeImage = 0;
+    info.bmiHeader.biXPelsPerMeter = 0;
+    info.bmiHeader.biYPelsPerMeter = 0;
+    info.bmiHeader.biClrUsed = 0;
+    info.bmiHeader.biClrImportant = 0;
+
+    uva::drawing::image img(size());
+
+    GetDIBits(GetDC(nullptr), m_bitmap, 0, height(), img.pixels(), &info, DIB_RGB_COLORS);
+
+    return img;
 }
 
 uva::drawing::window_surface uva::drawing::window::create_surface()
