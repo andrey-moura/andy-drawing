@@ -124,7 +124,22 @@ uva::drawing::image uva::drawing::memory_surface::to_image()
 
     uva::drawing::image img(size());
 
-    GetDIBits(GetDC(nullptr), m_bitmap, 0, height(), img.pixels(), &info, DIB_RGB_COLORS);
+    uva::color* pixels = img.pixels();
+
+    GetDIBits(GetDC(nullptr), m_bitmap, 0, height(), pixels, &info, DIB_RGB_COLORS);
+
+    for(size_t i = 0; i < size().w * size().h; i++)
+    {
+        char r = pixels[i].r;
+        char b = pixels[i].b;
+
+        pixels[i].r = b;
+        pixels[i].b = r;
+
+        // Workaround for the fact that the alpha channel is not set by GetDIBits
+        // TODO: We have to fix this
+        pixels[i].a = 255;
+    }
 
     return img;
 }
