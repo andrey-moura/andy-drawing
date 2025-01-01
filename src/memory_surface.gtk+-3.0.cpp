@@ -44,7 +44,13 @@ uva::drawing::image uva::drawing::memory_surface::to_image()
         throw std::runtime_error("Unsupported format");
     }
 
+    int stride = cairo_image_surface_get_stride(surface);
+
     uva::size size(cairo_image_surface_get_width(surface), cairo_image_surface_get_height(surface));
+
+    if (stride != size.w * 4) {
+        throw std::runtime_error("Unsupported stride");
+    }
 
     uva::drawing::image img(size);
 
@@ -52,9 +58,16 @@ uva::drawing::image uva::drawing::memory_surface::to_image()
 
     unsigned char* surface_data = cairo_image_surface_get_data(surface);
 
-    for(int i = 0; i < size.w * size.h; i++)
-    {
-        pixels[i] = uva::color(surface_data[i * 4 + 2], surface_data[i * 4 + 1], surface_data[i * 4], surface_data[i * 4 + 3]);
+    for (int y = 0; y < size.h; ++y) {
+        for (int x = 0; x < size.w; ++x) {
+            int i = y * stride + x * 4;
+            pixels[y * size.w + x] = uva::color(
+                surface_data[i + 2], // Red
+                surface_data[i + 1], // Green
+                surface_data[i + 0], // Blue
+                surface_data[i + 3]  // Alpha
+            );
+        }
     }
 
     return img;
