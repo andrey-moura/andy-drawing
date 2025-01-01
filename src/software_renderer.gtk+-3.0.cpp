@@ -49,3 +49,26 @@ void uva::drawing::software_renderer::clear(const uva::color& __color)
     cairo_set_source_rgba(m_cairo, __color);
     cairo_paint(m_cairo);
 }
+
+uva::size uva::drawing::software_renderer::text_extent(std::string_view __text, size_t font_size) const
+{
+    cairo_text_extents_t extents;
+    cairo_set_font_size(m_cairo, font_size);
+    cairo_text_extents(m_cairo, __text.data(), &extents);
+
+    uva::size extents_size = { (int)extents.width, (int)extents.height };
+
+    return extents_size;
+}
+
+void uva::drawing::software_renderer::draw_text(std::string_view __text, const uva::point& __point, size_t font_size, const uva::color& __color) const
+{
+    cairo_set_source_rgba(m_cairo, __color);
+    cairo_set_font_size(m_cairo, font_size);
+
+    cairo_text_extents_t extents;
+    cairo_text_extents(m_cairo, __text.data(), &extents);
+
+    cairo_move_to(m_cairo, __point.x, __point.y - extents.y_bearing);
+    cairo_show_text(m_cairo, __text.data());
+}

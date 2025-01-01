@@ -95,6 +95,8 @@ namespace uva
         public:
             virtual void fill_rect(const uva::rect& __rect, const uva::color& __color) { }
             virtual void clear(const uva::color& __color) { }
+            virtual uva::size text_extent(std::string_view __text, size_t font_size) const { return uva::size(0, 0); }
+            virtual void draw_text(std::string_view __text, const uva::point& __rect, size_t font_size, const uva::color& __color) const { }
         private:
             surface& m_surface;
         };
@@ -106,6 +108,8 @@ namespace uva
         public:
             void fill_rect(const uva::rect& __rect, const uva::color& __color) override;
             void clear(const uva::color& __color) override;
+            virtual uva::size text_extent(std::string_view __text, size_t font_size) const override;
+            virtual void draw_text(std::string_view __text, const uva::point& __point, size_t font_size, const uva::color& __color) const override;
         };
         class hardware_renderer : public basic_renderer
         {
