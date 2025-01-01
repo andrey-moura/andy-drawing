@@ -106,14 +106,18 @@ namespace uva
 
             stream.write(reinterpret_cast<char*>(&important_colors), sizeof(important_colors));
 
-            for(int i = 0; i < m_size.w * m_size.h; i++)
+            for (int y = m_size.h - 1; y >= 0; --y)
             {
-                stream.write(reinterpret_cast<char*>(&m_pixels[i].b), 1);
-                stream.write(reinterpret_cast<char*>(&m_pixels[i].g), 1);
-                stream.write(reinterpret_cast<char*>(&m_pixels[i].r), 1);
-                stream.write(reinterpret_cast<char*>(&m_pixels[i].a), 1);
+                for (int x = 0; x < m_size.w; ++x)
+                {
+                    int i = y * m_size.w + x;
+                    stream.write(reinterpret_cast<char*>(&m_pixels[i].b), 1);
+                    stream.write(reinterpret_cast<char*>(&m_pixels[i].g), 1);
+                    stream.write(reinterpret_cast<char*>(&m_pixels[i].r), 1);
+                    stream.write(reinterpret_cast<char*>(&m_pixels[i].a), 1);
+                }
             }
-
+            
             stream.close();
         }
 
