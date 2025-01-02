@@ -6,6 +6,7 @@
 
 struct software_renderer_data {
     cairo_t* cairo = nullptr;
+    bool should_destroy_cairo = false;
 };
 
 struct surface_data {

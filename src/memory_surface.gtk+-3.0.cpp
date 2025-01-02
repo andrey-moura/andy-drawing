@@ -1,7 +1,5 @@
 #include <uva/drawing.hpp>
 
-#include "gtk3+-3.0.hpp"
-
 uva::drawing::memory_surface::memory_surface(const uva::size& s)
     : surface(s)
 {

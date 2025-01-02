@@ -1,24 +1,33 @@
 #include <gtk/gtk.h>
 
-#include "gtk3+-3.0.hpp"
-
 #include <uva/drawing.hpp>
 
 #define m_cairo os_specific_data_as<software_renderer_data>().cairo
+#define m_should_destroy_cairo os_specific_data_as<software_renderer_data>().should_destroy_cairo
+
+uva::drawing::software_renderer::software_renderer()
+{
+    software_renderer_data data;
+    data.should_destroy_cairo = false;
+
+    os_specific_data_as<software_renderer_data>() = data;
+}
 
 uva::drawing::software_renderer::software_renderer(surface& __surface)
-    : basic_renderer(__surface)
 {
     // Create the software_renderer
     software_renderer_data data;
     data.cairo = cairo_create(__surface.os_specific_data_as<surface_data>().cairo_surface);
+    data.should_destroy_cairo = true;
 
     os_specific_data_as<software_renderer_data>() = data;
 }
 
 uva::drawing::software_renderer::~software_renderer()
 {
-    cairo_destroy(m_cairo);
+    if(m_should_destroy_cairo) {
+        cairo_destroy(m_cairo);
+    }
 }
 
 uva::colord cairo_normalize_color(const uva::color& __color)

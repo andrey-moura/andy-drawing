@@ -29,6 +29,7 @@ get_filename_component(UVA_DRAWING_PARENT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DI
 add_library(uva-drawing
     ${CMAKE_CURRENT_LIST_DIR}/src/memory_surface.${UVA_DRAWING_BACKEND}.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/software_renderer.${UVA_DRAWING_BACKEND}.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/src/window_surface.${UVA_DRAWING_BACKEND}.cpp
 
     ${CMAKE_CURRENT_LIST_DIR}/src/image.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/texture_surface.cpp
@@ -67,12 +68,14 @@ os_specific_target_properties(uva-drawing)
 # Create an executable for each file in examples
 file(GLOB EXAMPLES ${CMAKE_CURRENT_LIST_DIR}/examples/*.cpp)
 
-foreach(EXAMPLE ${EXAMPLES})
-    get_filename_component(EXAMPLE_NAME ${EXAMPLE} NAME_WE)
+if(FALSE)
+    foreach(EXAMPLE ${EXAMPLES})
+        get_filename_component(EXAMPLE_NAME ${EXAMPLE} NAME_WE)
 
-    add_executable(${EXAMPLE_NAME} ${EXAMPLE})
+        add_executable(${EXAMPLE_NAME} ${EXAMPLE})
 
-    target_link_libraries(${EXAMPLE_NAME} uva-drawing)
-    
-    os_specific_target_properties(${EXAMPLE_NAME})
-endforeach()
+        target_link_libraries(${EXAMPLE_NAME} uva-drawing)
+        
+        os_specific_target_properties(${EXAMPLE_NAME})
+    endforeach()
+endif()

@@ -9,7 +9,6 @@ struct hardware_surface_data {
 #define m_texture os_specific_data_as<hardware_surface_data>().texture
 
 uva::drawing::hardware_renderer::hardware_renderer(surface& __surface)
-    : basic_renderer(__surface)
 {
 
 }

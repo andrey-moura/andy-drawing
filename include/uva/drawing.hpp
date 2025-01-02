@@ -4,12 +4,13 @@
 #include <string_view>
 #include <filesystem>
 
+#include <uva/drawing/image.hpp>
+#include <uva/drawing/gtk3+-3.0.hpp>
+
 #include <uva/size.hpp>
 #include <uva/color.hpp>
 #include <uva/rect.hpp>
-#include <uva/drawing/image.hpp>
-
-#include "os_specific_data_member.hpp"
+#include <uva/os_specific_data_member.hpp>
 
 namespace uva
 {
@@ -35,6 +36,7 @@ namespace uva
         class surface : public os_specific_data_member<8>
         {
         public:
+            surface() = default;
             surface(const uva::size& s)
                 : m_size(s)
             {
@@ -62,7 +64,7 @@ namespace uva
         class window_surface : public surface
         {
         public:
-            window_surface() : surface(uva::size(0, 0)) { }
+            window_surface(size_t native_window);
         };
         class memory_surface : public surface
         {
@@ -84,25 +86,21 @@ namespace uva
             texture_surface(const uva::size& s);
             ~texture_surface();
         };
-        class basic_renderer : protected os_specific_data_member<256>
+        class basic_renderer : public os_specific_data_member<256>
         {
         public:
-            basic_renderer(surface& __surface)
-                : m_surface(__surface)
-            {
-            }
+            basic_renderer() = default;
             ~basic_renderer() = default;
         public:
             virtual void fill_rect(const uva::rect& __rect, const uva::color& __color) { }
             virtual void clear(const uva::color& __color) { }
             virtual uva::size text_extent(std::string_view __text, size_t font_size) const { return uva::size(0, 0); }
             virtual void draw_text(std::string_view __text, const uva::point& __rect, size_t font_size, const uva::color& __color) const { }
-        private:
-            surface& m_surface;
         };
         class software_renderer : public basic_renderer
         {
         public:
+            software_renderer();
             software_renderer(surface& __surface);
             ~software_renderer();
         public:
