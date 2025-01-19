@@ -6,7 +6,6 @@
 #define m_surface os_specific_data_as<software_renderer_data>().surface
 
 uva::drawing::software_renderer::software_renderer(surface& __surface)
-    : basic_renderer(__surface)
 {
     m_dc = CreateCompatibleDC(nullptr);
 

@@ -5,7 +5,9 @@
 #include <filesystem>
 
 #include <uva/drawing/image.hpp>
+#ifdef __linux__
 #include <uva/drawing/gtk3+-3.0.hpp>
+#endif
 
 #include <uva/size.hpp>
 #include <uva/color.hpp>
@@ -17,22 +19,6 @@ namespace uva
     //temp
     namespace drawing
     {
-        class window_surface;
-        class window : private os_specific_data_member<8>
-        {
-        public:
-            /// @brief Create a new window with the specified title and the OS's default size and position.
-            /// @param __title The title of the window.
-            window(std::string_view __title);
-        public:
-            /// @brief Show the window.
-            /// @param maximized Whether the window should be maximized.
-            void show(bool maximized = false);
-            /// @brief Hide the window.
-            void hide();
-        public:
-            window_surface create_surface();
-        };
         class surface : public os_specific_data_member<8>
         {
         public:
@@ -60,11 +46,6 @@ namespace uva
 
             /// @brief Convert the surface to an image.
             virtual uva::drawing::image to_image() { return uva::drawing::image(m_size); }
-        };
-        class window_surface : public surface
-        {
-        public:
-            window_surface(size_t native_window);
         };
         class memory_surface : public surface
         {
