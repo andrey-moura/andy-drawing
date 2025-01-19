@@ -6,7 +6,9 @@
 
 #include <uva/drawing/image.hpp>
 #ifdef __linux__
-#include <uva/drawing/gtk3+-3.0.hpp>
+    #include <uva/drawing/gtk3+-3.0.hpp>
+#elif defined(_WIN32)
+    #include <uva/drawing/win32.hpp>
 #endif
 
 #include <uva/size.hpp>

@@ -12,5 +12,8 @@ struct memory_surface_data
 struct software_renderer_data
 {
     HDC dc;
-    uva::drawing::surface* surface;
+};
+
+struct window_data {
+    HWND hwnd;
 };

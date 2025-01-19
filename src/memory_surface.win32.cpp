@@ -1,6 +1,6 @@
 #include <uva/drawing.hpp>
 
-#include "win32.hpp"
+#include <uva/drawing/win32.hpp>
 
 #define m_bitmap os_specific_data_as<memory_surface_data>().bitmap
 
