@@ -70,8 +70,3 @@ uva::drawing::image uva::drawing::memory_surface::to_image()
 
     return img;
 }
-
-uva::drawing::window_surface uva::drawing::window::create_surface()
-{
-    
-}

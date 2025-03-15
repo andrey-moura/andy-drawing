@@ -26,7 +26,7 @@ endif()
 # Get the parent directory
 get_filename_component(UVA_DRAWING_PARENT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DIRECTORY)
 
-add_library(uva-drawing
+add_library(uva-drawing OBJECT
     ${CMAKE_CURRENT_LIST_DIR}/src/memory_surface.${UVA_DRAWING_BACKEND}.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/software_renderer.${UVA_DRAWING_BACKEND}.cpp
     ${CMAKE_CURRENT_LIST_DIR}/src/window_surface.${UVA_DRAWING_BACKEND}.cpp
