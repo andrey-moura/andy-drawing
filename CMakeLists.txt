@@ -3,37 +3,11 @@ cmake_minimum_required(VERSION 3.10)
 
 project(uva-drawing)
 
-set(UVA_DRAWING_BACKEND "NONE")
-
-if(WIN32)
-    set(UVA_DRAWING_BACKEND "win32")
-elseif(LINUX)
-    find_package(PkgConfig)
-
-    if(PKG_CONFIG_FOUND)
-        pkg_check_modules(GTK3 gtk+-3.0)
-
-        if(GTK3_FOUND)
-            set(UVA_DRAWING_BACKEND "gtk+-3.0")
-        endif()
-
-        include_directories(${GTK3_INCLUDE_DIRS})
-    endif()
-else()
-message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
-endif()
-
 # Get the parent directory
 get_filename_component(UVA_DRAWING_PARENT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DIRECTORY)
 
 add_library(uva-drawing OBJECT
-    ${CMAKE_CURRENT_LIST_DIR}/src/memory_surface.${UVA_DRAWING_BACKEND}.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/software_renderer.${UVA_DRAWING_BACKEND}.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/window_surface.${UVA_DRAWING_BACKEND}.cpp
-
     ${CMAKE_CURRENT_LIST_DIR}/src/image.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/texture_surface.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/hardware_renderer.cpp
 )
 
 set(OpenGL_GL_PREFERENCE "LEGACY")
