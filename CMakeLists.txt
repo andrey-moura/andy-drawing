@@ -20,7 +20,7 @@ elseif(LINUX)
         include_directories(${GTK3_INCLUDE_DIRS})
     endif()
 else()
-    message(FATAL_ERROR "Unsupported platform")
+message(FATAL_ERROR "Unsupported platform: ${CMAKE_SYSTEM_NAME}")
 endif()
 
 # Get the parent directory
