@@ -58,13 +58,23 @@ namespace andy
             m_data = create_window(title);
         }
 
+        void window::show(bool maxmized)
+        {
+            ShowWindow(m_hwnd, maxmized ? SW_MAXIMIZE : SW_SHOW);
+            UpdateWindow(m_hwnd);
+        }
+
+        andy::size window::size() const
+        {
+            RECT rect;
+            GetClientRect(m_hwnd, &rect);
+            return andy::size{ rect.right - rect.left, rect.bottom - rect.top };
+        }
+
         window::~window()
         {
-            if (m_hwnd)
-            {
-                DestroyWindow(m_hwnd);
-                m_data = nullptr;
-            }
+            DestroyWindow(m_hwnd);
+            m_data = nullptr;
         }
     };
 };
