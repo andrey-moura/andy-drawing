@@ -1,4 +1,4 @@
-#include <uva/drawing.hpp>
+#include <andy/drawing.hpp>
 
 #include <chrono>
 #include <iostream>
@@ -6,10 +6,10 @@
 int main() {
     std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
 
-    uva::drawing::memory_surface surface(uva::size(4000, 4000));
-    uva::drawing::software_renderer renderer(surface);
+    andy::drawing::memory_surface surface(andy::size(4000, 4000));
+    andy::drawing::software_renderer renderer(surface);
 
-    renderer.clear(uva::color(0, 255, 0));
+    renderer.clear(andy::color(0, 255, 0));
 
     std::filesystem::path path = std::filesystem::current_path();
     surface.write_to_file(path, "output");

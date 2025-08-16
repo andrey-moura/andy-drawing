@@ -2,29 +2,29 @@
 
 #include <filesystem>
 
-#include <uva/size.hpp>
-#include <uva/rect.hpp>
-#include <uva/color.hpp>
+#include <andy/size.hpp>
+#include <andy/rect.hpp>
+#include <andy/color.hpp>
 
-namespace uva
+namespace andy
 {
     namespace drawing
     {
         class image
         {
         public:
-            image(uva::size size);
+            image(andy::size size);
             ~image();
         protected:
-            uva::size m_size;
-            uva::color* m_pixels;
+            andy::size m_size;
+            andy::color* m_pixels;
             // Accessors
         public:
-            const uva::size& size() const;
-            const uva::color* pixels() const { return m_pixels; }
-            uva::color* pixels() { return m_pixels; }
+            const andy::size& size() const;
+            const andy::color* pixels() const { return m_pixels; }
+            andy::color* pixels() { return m_pixels; }
         public:
-            void fill(const uva::color& color, const uva::rect& rect);
+            void fill(const andy::color& color, const andy::rect& rect);
         public:
             bool operator==(const image& other) const;
         public:

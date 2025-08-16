@@ -1,15 +1,15 @@
-#include <uva/drawing/image.hpp>
+#include "andy/drawing/image.hpp"
 
 #include <string.h>
 
 #include <fstream>
 
-namespace uva
+namespace andy
 {
     namespace drawing
     {
-        image::image(uva::size __size)
-            : m_size(__size), m_pixels(new uva::color[__size.w * __size.h])
+        image::image(andy::size __size)
+            : m_size(__size), m_pixels(new andy::color[__size.w * __size.h])
         {
         }
 
@@ -18,12 +18,12 @@ namespace uva
             delete[] m_pixels;
         }
 
-        const uva::size& image::size() const
+        const andy::size& image::size() const
         {
             return m_size;
         }
 
-        void image::fill(const uva::color& color, const uva::rect& rect)
+        void image::fill(const andy::color& color, const andy::rect& rect)
         {
             for(int y = rect.y; y < rect.y + rect.h; y++)
             {
@@ -41,7 +41,7 @@ namespace uva
                 return false;
             }
 
-            return memcmp(m_pixels, other.m_pixels, m_size.w * m_size.h * sizeof(uva::color)) == 0;
+            return memcmp(m_pixels, other.m_pixels, m_size.w * m_size.h * sizeof(andy::color)) == 0;
         }
 
         void image::save_bitmap(const std::filesystem::path& path)
@@ -138,7 +138,7 @@ namespace uva
             
             stream.seekg(18);
 
-            uva::size size;
+            andy::size size;
 
             uint32_t buffer;
             char* buffer_ptr = reinterpret_cast<char*>(&buffer);
@@ -170,7 +170,7 @@ namespace uva
             {
                 stream.read(buffer_ptr, bpp);
 
-                img.m_pixels[i] = uva::color(buffer_ptr[2], buffer_ptr[1], buffer_ptr[0], buffer_ptr[3]);
+                img.m_pixels[i] = andy::color(buffer_ptr[2], buffer_ptr[1], buffer_ptr[0], buffer_ptr[3]);
             }
 
             return img;
