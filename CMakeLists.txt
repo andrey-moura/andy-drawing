@@ -6,22 +6,31 @@ project(andy-drawing)
 # Get the parent directory
 get_filename_component(ANDY_DRAWING_PARENT_DIRECTORY ${CMAKE_CURRENT_LIST_DIR} DIRECTORY)
 
-find_package(SDL3 QUIET)
+# Check if GTK3 is available
+find_package(PkgConfig)
 
-if(TARGET SDL3::SDL3)
-    get_target_property(SDL3_INCLUDE_DIRS SDL3::SDL3 INTERFACE_INCLUDE_DIRECTORIES)
+if(PkgConfig_FOUND)
+    pkg_check_modules(GTK3 QUIET gtk+-3.0)
+endif()
+
+if(GTK3_FOUND)
     set(FOUND_DRAWING_BACKEND TRUE)
-    set(ANDY_DRAWING_BACKEND "sdl3")
+    set(ANDY_DRAWING_BACKEND "gtk3")
+    include_directories(${GTK3_INCLUDE_DIRS})
+    link_directories(${GTK3_LIBRARY_DIRS})
     add_compile_definitions(
-        ANDY_DRAWING_SDL3
+        ANDY_DRAWING_GTK3
     )
+    set(ANDY_DRAWING_BACKEND_LIBRARIES ${GTK3_LIBRARIES})
 endif()
 
 if(FOUND_DRAWING_BACKEND)
     add_library(andy-drawing OBJECT
         ${CMAKE_CURRENT_LIST_DIR}/src/image.cpp
         ${CMAKE_CURRENT_LIST_DIR}/src/${ANDY_DRAWING_BACKEND}/window.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/src/${ANDY_DRAWING_BACKEND}/app.cpp
     )
+    target_link_libraries(andy-drawing PRIVATE ${ANDY_DRAWING_BACKEND_LIBRARIES})
 else()
     add_library(andy-drawing INTERFACE)
 endif()

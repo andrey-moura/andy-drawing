@@ -12,6 +12,7 @@ namespace andy
         {
         public:
             window(std::string_view title);
+            ~window();
         public:
             void show(bool maximized = false);
             andy::size size() const;
