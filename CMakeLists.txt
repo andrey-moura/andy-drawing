@@ -14,14 +14,19 @@ if(PkgConfig_FOUND)
 endif()
 
 if(GTK3_FOUND)
-    set(FOUND_DRAWING_BACKEND TRUE)
-    set(ANDY_DRAWING_BACKEND "gtk3")
-    include_directories(${GTK3_INCLUDE_DIRS})
-    link_directories(${GTK3_LIBRARY_DIRS})
-    add_compile_definitions(
-        ANDY_DRAWING_GTK3
+    find_path(GTK3_GTK_H gtk/gtk.h
+        HINTS ${GTK3_INCLUDE_DIRS}
     )
-    set(ANDY_DRAWING_BACKEND_LIBRARIES ${GTK3_LIBRARIES})
+    if(GTK3_GTK_H)
+        set(FOUND_DRAWING_BACKEND TRUE)
+        set(ANDY_DRAWING_BACKEND "gtk3")
+        include_directories(${GTK3_INCLUDE_DIRS})
+        link_directories(${GTK3_LIBRARY_DIRS})
+        add_compile_definitions(
+            ANDY_DRAWING_GTK3
+        )
+        set(ANDY_DRAWING_BACKEND_LIBRARIES ${GTK3_LIBRARIES})
+    endif()
 endif()
 
 if(WIN32)
