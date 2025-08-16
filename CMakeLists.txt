@@ -24,6 +24,14 @@ if(GTK3_FOUND)
     set(ANDY_DRAWING_BACKEND_LIBRARIES ${GTK3_LIBRARIES})
 endif()
 
+if(WIN32)
+    set(FOUND_DRAWING_BACKEND TRUE)
+    set(ANDY_DRAWING_BACKEND "win32")
+    add_compile_definitions(
+        ANDY_DRAWING_WIN32
+    )
+endif()
+
 if(FOUND_DRAWING_BACKEND)
     add_library(andy-drawing OBJECT
         ${CMAKE_CURRENT_LIST_DIR}/src/image.cpp
