@@ -28,7 +28,6 @@ if(FOUND_DRAWING_BACKEND)
     add_library(andy-drawing OBJECT
         ${CMAKE_CURRENT_LIST_DIR}/src/image.cpp
         ${CMAKE_CURRENT_LIST_DIR}/src/${ANDY_DRAWING_BACKEND}/window.cpp
-        ${CMAKE_CURRENT_LIST_DIR}/src/${ANDY_DRAWING_BACKEND}/app.cpp
     )
     target_link_libraries(andy-drawing PRIVATE ${ANDY_DRAWING_BACKEND_LIBRARIES})
 else()
