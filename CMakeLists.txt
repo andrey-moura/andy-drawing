@@ -37,10 +37,23 @@ if(WIN32)
     )
 endif()
 
+if(EMSCRIPTEN)
+    set(FOUND_DRAWING_BACKEND TRUE)
+    set(ANDY_DRAWING_BACKEND "emscripten")
+    add_compile_definitions(
+        ANDY_DRAWING_EMSCRIPTEN
+    )
+endif()
+
 if(FOUND_DRAWING_BACKEND)
     add_library(andy-drawing OBJECT
+        ${CMAKE_CURRENT_LIST_DIR}/src/basic_renderer.cpp
         ${CMAKE_CURRENT_LIST_DIR}/src/image.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/src/page.cpp
+
+        ${CMAKE_CURRENT_LIST_DIR}/src/${ANDY_DRAWING_BACKEND}/software_renderer.cpp
         ${CMAKE_CURRENT_LIST_DIR}/src/${ANDY_DRAWING_BACKEND}/window.cpp
+        ${CMAKE_CURRENT_LIST_DIR}/src/${ANDY_DRAWING_BACKEND}/dialog.cpp
     )
     target_link_libraries(andy-drawing PRIVATE ${ANDY_DRAWING_BACKEND_LIBRARIES})
 else()

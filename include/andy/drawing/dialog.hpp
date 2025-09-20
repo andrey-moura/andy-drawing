@@ -1,7 +1,6 @@
 #pragma once
 
 #include <string_view>
-#include <memory>
 
 #include "andy/size.hpp"
 
@@ -9,21 +8,19 @@ namespace andy
 {
     namespace drawing
     {
-        class window
+        class dialog
         {
         public:
-            window(std::string_view title);
-            ~window();
-        public:
+            dialog(std::string_view title);
+            ~dialog();
+        protected:
             void* m_data = nullptr; // Implementation-specific data
         public:
-            window(const window&) = delete;
-            window& operator=(const window&) = delete;
+            dialog(const dialog&) = delete;
+            dialog& operator=(const dialog&) = delete;
         public:
             void show(bool maximized = false);
             andy::size size() const;
-        public:
-            virtual void draw() {};
         };
     };
 };

@@ -6,9 +6,12 @@
 
 #ifdef __linux__
 #endif
+
 #include <andy/size.hpp>
 #include <andy/color.hpp>
 #include <andy/rect.hpp>
 
 #include "drawing/image.hpp"
 #include "drawing/window.hpp"
+#include "drawing/page.hpp"
+#include "drawing/software_renderer.hpp"
